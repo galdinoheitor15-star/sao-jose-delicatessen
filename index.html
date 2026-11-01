@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero/tapioca-delicia.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/site.css?v=2">
+  <link rel="stylesheet" href="css/site.css?v=3">
 </head>
 <body>
   <a class="skip" href="#cardapio">Pular para o cardápio</a>
@@ -133,7 +133,7 @@
         <div class="tabs" id="tabs" role="tablist" aria-label="Categorias"></div>
         <label class="search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input id="search" type="search" placeholder="Buscar no cardápio" autocomplete="off">
+          <input id="search" type="search" placeholder="Buscar no cardápio" autocomplete="off" maxlength="60">
         </label>
       </div>
       <div class="menu__list" id="menuList"></div>
@@ -256,7 +256,7 @@
         <div id="psSizes"></div>
         <div id="psOpts"></div>
         <label class="field"><span>Observação para a cozinha</span>
-          <textarea id="psNote" rows="2" maxlength="140" placeholder="Ex.: sem cebola, bem passado, cortar ao meio"></textarea>
+          <textarea id="psNote" rows="2" maxlength="140" data-chars placeholder="Ex.: sem cebola, bem passado, cortar ao meio"></textarea>
         </label>
         <div class="ps__foot">
           <div class="qty"><button type="button" data-q="-1" aria-label="Menos">−</button><output id="psQty">1</output><button type="button" data-q="1" aria-label="Mais">+</button></div>
@@ -279,6 +279,6 @@
     </aside>
   </div>
 
-  <script type="module" src="js/site.js?v=2"></script>
+  <script type="module" src="js/site.js?v=3"></script>
 </body>
 </html>

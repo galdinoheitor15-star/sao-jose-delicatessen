@@ -2,12 +2,14 @@
    Site da Delicatessen São José
    Cardápio, sacola, delivery, mesa (QR), avaliações e animações.
    ========================================================= */
-import { STORE, REVIEWS, REVIEWS_URL, PAYMENTS } from './config.js';
-import { connect } from './data.js';
+import { STORE, REVIEWS, REVIEWS_URL, PAYMENTS } from './config.js?v=3';
+import { connect } from './data.js?v=3';
 import {
   $, $$, esc, money, CATEGORIES, resolveMenu, resolveDelivery, itemsTotal, lineLabel,
-  isOpen, waLink, distanceKm, reduceMotion, toast
-} from './util.js';
+  isOpen, waLink, distanceKm, reduceMotion, toast, charCounters
+} from './util.js?v=3';
+
+charCounters();
 
 document.documentElement.classList.remove('no-js');
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -455,26 +457,26 @@ function renderDrawer() {
   const deliveryFields = state.mode === 'delivery' ? `
     <label class="field"><span>Bairro</span><select data-f="zone" required><option value="">Selecione</option>${zoneOpts}</select></label>
     <div class="row">
-      <label class="field"><span>Rua</span><input data-f="rua" value="${esc(form.rua)}" autocomplete="address-line1" required></label>
-      <label class="field"><span>Número</span><input data-f="numero" value="${esc(form.numero)}" inputmode="numeric" required></label>
+      <label class="field"><span>Rua</span><input data-f="rua" value="${esc(form.rua)}" autocomplete="address-line1" maxlength="100" required></label>
+      <label class="field"><span>Número</span><input data-f="numero" value="${esc(form.numero)}" inputmode="numeric" maxlength="10" required></label>
     </div>
-    <label class="field"><span>Complemento / referência</span><input data-f="ref" value="${esc(form.ref)}" placeholder="Apto, bloco, ponto de referência"></label>` : '';
+    <label class="field"><span>Complemento / referência</span><input data-f="ref" value="${esc(form.ref)}" placeholder="Apto, bloco, ponto de referência" maxlength="100"></label>` : '';
   const payFields = state.mode === 'mesa' ? '' : `
     <label class="field"><span>Pagamento ${state.mode === 'delivery' ? 'na entrega' : 'na retirada'}</span>
       <select data-f="payment">${PAYMENTS.map((p) => `<option value="${p.id}" ${state.payment === p.id ? 'selected' : ''}>${p.name}</option>`).join('')}</select></label>
-    ${state.payment === 'dinheiro' ? `<label class="field"><span>Troco para quanto?</span><input data-f="troco" value="${esc(form.troco)}" inputmode="decimal" placeholder="Ex.: 100"></label>` : ''}`;
+    ${state.payment === 'dinheiro' ? `<label class="field"><span>Troco para quanto?</span><input data-f="troco" value="${esc(form.troco)}" inputmode="decimal" placeholder="Ex.: 100" maxlength="10"></label>` : ''}`;
   body.innerHTML = `
     ${MESA ? `<span class="mesa-flag">Você está na mesa ${MESA}: o pedido vai direto para a cozinha</span>` : ''}
     ${lines}
     <div class="seg" style="--n:${modes.length}">${modes.map(([id, l]) => `<button type="button" data-mode="${id}" class="${state.mode === id ? 'is-on' : ''}">${l}</button>`).join('')}</div>
     <div class="form">
       <div class="row">
-        <label class="field"><span>Seu nome</span><input data-f="nome" value="${esc(form.nome)}" autocomplete="name" required></label>
-        <label class="field"><span>WhatsApp</span><input data-f="fone" value="${esc(form.fone)}" inputmode="tel" autocomplete="tel" placeholder="(81) 9…" ${state.mode === 'mesa' ? '' : 'required'}></label>
+        <label class="field"><span>Seu nome</span><input data-f="nome" value="${esc(form.nome)}" autocomplete="name" maxlength="80" required></label>
+        <label class="field"><span>WhatsApp</span><input data-f="fone" value="${esc(form.fone)}" inputmode="tel" autocomplete="tel" placeholder="(81) 9…" maxlength="20" ${state.mode === 'mesa' ? '' : 'required'}></label>
       </div>
       ${deliveryFields}
       ${payFields}
-      <label class="field"><span>Observações do pedido</span><textarea data-f="obs" rows="2" maxlength="200" placeholder="Alergias, ponto da carne, horário…">${esc(form.obs)}</textarea></label>
+      <label class="field"><span>Observações do pedido</span><textarea data-f="obs" rows="2" maxlength="200" data-chars placeholder="Alergias, ponto da carne, horário…">${esc(form.obs)}</textarea></label>
     </div>`;
   paintSummary();
 }

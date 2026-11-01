@@ -1,6 +1,6 @@
 /* Tela de entrada dos painéis.
    Modo demonstração: PIN. Modo Firebase: e-mail e senha da equipe. */
-import { $, esc } from './util.js';
+import { $, esc } from './util.js?v=3';
 
 export function gate(be, { root, title, needRole, onUser }) {
   const needsManager = needRole === 'gerente';
@@ -16,11 +16,11 @@ export function gate(be, { root, title, needRole, onUser }) {
           ${user && needsManager ? '<p class="login__err">Este acesso é só do dono ou gerente.</p>' : ''}
           ${be.mode === 'local' ? `
             ${needsManager ? '' : `<label class="field"><span>Perfil</span><select id="lgRole"><option value="equipe">Equipe (atendimento e cozinha)</option><option value="gerente">Gerente</option></select></label>`}
-            <label class="field"><span>PIN</span><input id="lgPin" type="password" inputmode="numeric" autocomplete="current-password" required></label>
+            <label class="field"><span>PIN</span><input id="lgPin" type="password" inputmode="numeric" maxlength="8" autocomplete="current-password" required></label>
             <p class="demo-note">Modo demonstração: os dados ficam salvos só neste navegador. Os PINs de teste estão em <code>js/config.js</code> e o passo a passo para ligar em vários aparelhos, em <code>FIREBASE.md</code>.</p>
           ` : `
-            <label class="field"><span>E-mail</span><input id="lgEmail" type="email" autocomplete="username" required></label>
-            <label class="field"><span>Senha</span><input id="lgPw" type="password" autocomplete="current-password" required></label>
+            <label class="field"><span>E-mail</span><input id="lgEmail" type="email" maxlength="120" autocomplete="username" required></label>
+            <label class="field"><span>Senha</span><input id="lgPw" type="password" maxlength="128" autocomplete="current-password" required></label>
           `}
           <p class="login__err" id="lgErr" aria-live="polite"></p>
           <button class="btn btn--lg btn--block">Entrar</button>

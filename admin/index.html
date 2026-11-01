@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/panel.css?v=5">
+  <link rel="stylesheet" href="../css/panel.css?v=6">
 </head>
 <body>
   <div id="root"></div>
@@ -25,14 +25,14 @@
           <button type="button" class="btn btn--ghost btn--sm" id="edImgRm">Remover foto</button>
         </div>
       </div>
-      <label class="field"><span>Nome</span><input id="edName" required maxlength="80"></label>
+      <label class="field"><span>Nome</span><input id="edName" required maxlength="80" data-chars></label>
       <div class="grid2">
         <label class="field"><span>Categoria</span><select id="edCat"></select></label>
         <label class="field"><span>Subgrupo (opcional)</span><input id="edGroup" maxlength="40" placeholder="Ex.: Pizzas, Cafés"></label>
       </div>
-      <label class="field"><span>Descrição</span><textarea id="edDesc" rows="2" maxlength="220"></textarea></label>
+      <label class="field"><span>Descrição</span><textarea id="edDesc" rows="2" maxlength="220" data-chars></textarea></label>
       <div class="grid2">
-        <label class="field"><span>Preço (R$)</span><input id="edPrice" inputmode="decimal" placeholder="Vazio = sob consulta"></label>
+        <label class="field"><span>Preço (R$)</span><input id="edPrice" inputmode="decimal" maxlength="10" placeholder="Vazio = sob consulta"></label>
         <label class="field"><span>Unidade (opcional)</span><input id="edUnit" maxlength="20" placeholder="fatia, por kg, 500ml…"></label>
       </div>
       <div class="field"><span>Tamanhos com preço próprio (opcional)</span>
@@ -40,7 +40,7 @@
         <button type="button" class="btn btn--line btn--sm" id="edAddSize" style="justify-self:start">+ Tamanho</button>
       </div>
       <div class="grid2">
-        <label class="field"><span>Opções (separadas por vírgula)</span><input id="edOpts" placeholder="Frango, Charque"></label>
+        <label class="field"><span>Opções (separadas por vírgula)</span><input id="edOpts" maxlength="200" data-chars placeholder="Frango, Charque"></label>
         <label class="field"><span>Cliente escolhe até</span><select id="edMulti"><option value="0">1 opção</option><option value="2">2 opções</option><option value="3">3 opções</option><option value="4">4 opções</option></select></label>
       </div>
       <div style="display:flex;gap:18px;flex-wrap:wrap">
@@ -51,6 +51,6 @@
     </form>
   </dialog>
 
-  <script type="module" src="../js/admin.js?v=3"></script>
+  <script type="module" src="../js/admin.js?v=4"></script>
 </body>
 </html>

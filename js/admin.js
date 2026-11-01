@@ -1,9 +1,11 @@
 /* =========================================================
    Gerência (só dono ou gerente): produtos, preços e taxas de entrega.
    ========================================================= */
-import { connect } from './data.js';
-import { gate } from './auth-ui.js';
-import { $, $$, esc, money, CATEGORIES, DEFAULT_PRODUCTS, resolveMenu, resolveDelivery, toast } from './util.js';
+import { connect } from './data.js?v=3';
+import { gate } from './auth-ui.js?v=3';
+import { $, $$, esc, money, CATEGORIES, DEFAULT_PRODUCTS, resolveMenu, resolveDelivery, toast, charCounters } from './util.js?v=3';
+
+charCounters();
 
 const root = $('#root');
 const S = { be: null, db: null, products: resolveMenu(null), settings: null, view: 'produtos', q: '', cat: '', editing: null, img: '' };
@@ -79,7 +81,7 @@ function renderProducts(view) {
     <div class="view-head"><h2>Produtos e preços</h2><span class="muted">${S.products.length} produtos · as mudanças aparecem no site na hora</span><span class="grow"></span>
       <button class="btn btn--blue" id="newProd">+ Novo produto</button></div>
     <div class="picker__bar">
-      <label class="field"><input id="fQ" type="search" placeholder="Buscar produto" value="${esc(S.q)}" autocomplete="off"></label>
+      <label class="field"><input id="fQ" type="search" maxlength="60" placeholder="Buscar produto" value="${esc(S.q)}" autocomplete="off"></label>
       <label class="field" style="flex:0 0 220px"><select id="fCat"><option value="">Todas as categorias</option>${CATEGORIES.map((c) => `<option value="${c.id}" ${S.cat === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
     </div>
     <div class="table-wrap"><table class="table">
@@ -87,7 +89,7 @@ function renderProducts(view) {
       <tbody>${list.map((p) => `<tr data-id="${p.id}">
         <td>${p.img ? `<img src="${p.img.startsWith('data:') || p.img.startsWith('http') ? p.img : '../' + p.img}" alt="" loading="lazy">` : `<span class="mono">${esc(p.name[0])}</span>`}</td>
         <td><b>${esc(p.name)}</b><br><small class="muted">${esc(catName(p.cat))}${p.group ? ` · ${esc(p.group)}` : ''}</small></td>
-        <td>${p.sizes?.length ? `<button class="btn btn--line btn--sm" data-edit>${p.sizes.length} tamanhos · ${money(Math.min(...p.sizes.map((s) => s.p)))}+</button>` : `<input class="price-in" data-price value="${fmtIn(p.price)}" inputmode="decimal" placeholder="consulta" aria-label="Preço de ${esc(p.name)}">`}</td>
+        <td>${p.sizes?.length ? `<button class="btn btn--line btn--sm" data-edit>${p.sizes.length} tamanhos · ${money(Math.min(...p.sizes.map((s) => s.p)))}+</button>` : `<input class="price-in" data-price maxlength="10" value="${fmtIn(p.price)}" inputmode="decimal" placeholder="consulta" aria-label="Preço de ${esc(p.name)}">`}</td>
         <td class="hide-sm"><label class="switch"><input type="checkbox" data-active ${p.active !== false ? 'checked' : ''} aria-label="Disponível"><span></span></label></td>
         <td class="hide-sm"><label class="switch"><input type="checkbox" data-feat ${p.featured ? 'checked' : ''} aria-label="Destaque"><span></span></label></td>
         <td style="white-space:nowrap"><button class="btn btn--line btn--sm" data-edit>Editar</button> <button class="btn btn--ghost btn--sm" data-del>Excluir</button></td>
@@ -136,7 +138,7 @@ document.addEventListener('click', async (e) => {
 /* ---------- Editor ---------- */
 const ed = $('#edModal');
 function sizeRow(s = { n: '', p: '' }) {
-  return `<div><input placeholder="Tamanho (ex.: Grande)" value="${esc(s.n)}" data-sn><input placeholder="Preço" inputmode="decimal" value="${s.p === '' ? '' : fmtIn(s.p)}" data-sp><button type="button" class="mini-x" data-rmsize aria-label="Remover tamanho">×</button></div>`;
+  return `<div><input placeholder="Tamanho (ex.: Grande)" maxlength="30" value="${esc(s.n)}" data-sn><input placeholder="Preço" inputmode="decimal" maxlength="10" value="${s.p === '' ? '' : fmtIn(s.p)}" data-sp><button type="button" class="mini-x" data-rmsize aria-label="Remover tamanho">×</button></div>`;
 }
 function openEditor(p) {
   S.editing = p;
@@ -230,11 +232,11 @@ function renderZones(view) {
     <div class="view-head"><h2>Taxas de entrega</h2><span class="muted">bairros atendidos, valores e regras do delivery</span></div>
     <div class="panel" style="max-width:760px">
       <div class="grid2" style="grid-template-columns:repeat(3,1fr)">
-        <label class="field"><span>Pedido mínimo (R$)</span><input id="zMin" inputmode="decimal" value="${fmtIn(d.minOrder)}"></label>
-        <label class="field"><span>Raio máximo (km)</span><input id="zRad" inputmode="decimal" value="${d.radiusKm}"></label>
-        <label class="field"><span>Tempo médio</span><input id="zEta" value="${esc(d.eta)}"></label>
+        <label class="field"><span>Pedido mínimo (R$)</span><input id="zMin" inputmode="decimal" maxlength="10" value="${fmtIn(d.minOrder)}"></label>
+        <label class="field"><span>Raio máximo (km)</span><input id="zRad" inputmode="decimal" maxlength="5" value="${d.radiusKm}"></label>
+        <label class="field"><span>Tempo médio</span><input id="zEta" maxlength="30" value="${esc(d.eta)}"></label>
       </div>
-      <div class="rows" id="zRows" style="margin-top:16px">${d.zones.map((z) => `<div class="row" style="grid-template-columns:1fr 120px 34px"><input class="price-in" style="width:100%;text-align:left" data-zn value="${esc(z.name)}"><input class="price-in" data-zf value="${fmtIn(z.fee)}" inputmode="decimal"><button class="mini-x" data-zrm aria-label="Remover bairro">×</button></div>`).join('')}</div>
+      <div class="rows" id="zRows" style="margin-top:16px">${d.zones.map((z) => `<div class="row" style="grid-template-columns:1fr 120px 34px"><input class="price-in" style="width:100%;text-align:left" data-zn maxlength="40" value="${esc(z.name)}"><input class="price-in" data-zf maxlength="10" value="${fmtIn(z.fee)}" inputmode="decimal"><button class="mini-x" data-zrm aria-label="Remover bairro">×</button></div>`).join('')}</div>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
         <button class="btn btn--line" id="zAdd">+ Bairro</button><span style="flex:1"></span>
         <button class="btn" id="zSave">Salvar taxas</button>
@@ -243,7 +245,7 @@ function renderZones(view) {
 }
 function zonesClick(e) {
   const t = e.target;
-  if (t.closest('#zAdd')) { $('#zRows').insertAdjacentHTML('beforeend', '<div class="row" style="grid-template-columns:1fr 120px 34px"><input class="price-in" style="width:100%;text-align:left" data-zn placeholder="Nome do bairro"><input class="price-in" data-zf inputmode="decimal" placeholder="0,00"><button class="mini-x" data-zrm aria-label="Remover bairro">×</button></div>'); $('#zRows .row:last-child [data-zn]').focus(); }
+  if (t.closest('#zAdd')) { $('#zRows').insertAdjacentHTML('beforeend', '<div class="row" style="grid-template-columns:1fr 120px 34px"><input class="price-in" style="width:100%;text-align:left" data-zn maxlength="40" placeholder="Nome do bairro"><input class="price-in" data-zf inputmode="decimal" maxlength="10" placeholder="0,00"><button class="mini-x" data-zrm aria-label="Remover bairro">×</button></div>'); $('#zRows .row:last-child [data-zn]').focus(); }
   if (t.closest('[data-zrm]')) t.closest('.row').remove();
   if (t.closest('#zSave')) {
     const zones = $$('#zRows .row').map((r) => ({ name: $('[data-zn]', r).value.trim(), fee: parseMoney($('[data-zf]', r).value) ?? 0 })).filter((z) => z.name).map((z) => ({ id: slug(z.name), ...z }));

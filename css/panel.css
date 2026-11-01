@@ -294,3 +294,7 @@ p { margin: 0; }
   #receipt, #receipt * { visibility: visible; }
   #receipt { position: absolute; left: 0; top: 0; width: 80mm; font: 12px/1.4 monospace; color: #000; }
 }
+
+/* Contador de caracteres */
+.chars { align-self: flex-end; margin-top: -2px; font: 500 11.5px/1 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; transition: color 200ms; }
+.chars.near { color: var(--danger); font-weight: 700; }

@@ -7,7 +7,7 @@
      onComandas, createComanda, updateComanda,
      onAuth, signIn, signOut
    ========================================================= */
-import { FIREBASE_CONFIG, MANAGER_EMAILS, DEMO_PINS } from './config.js';
+import { FIREBASE_CONFIG, MANAGER_EMAILS, DEMO_PINS } from './config.js?v=3';
 
 const FB = 'https://www.gstatic.com/firebasejs/10.12.2';
 export const dayKey = (t = Date.now()) => {

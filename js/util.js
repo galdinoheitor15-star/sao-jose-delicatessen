@@ -1,6 +1,6 @@
 /* Utilidades compartilhadas por site, equipe e admin. */
-import { CATEGORIES, PRODUCTS } from './menu-data.js';
-import { DELIVERY, STORE } from './config.js';
+import { CATEGORIES, PRODUCTS } from './menu-data.js?v=3';
+import { DELIVERY, STORE } from './config.js?v=3';
 
 const BRL = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 export const money = (v) => BRL.format(Number(v) || 0);
@@ -82,6 +82,20 @@ export function chime() {
       o.start(t + i * 0.16); o.stop(t + i * 0.16 + 0.55);
     });
   } catch { /* sem áudio */ }
+}
+
+/* Contador "n/limite" nos campos de texto livre marcados com data-chars */
+export function charCounters() {
+  const paint = (el) => {
+    let c = el.nextElementSibling;
+    if (!c?.classList.contains('chars')) { c = document.createElement('small'); c.className = 'chars'; el.after(c); }
+    const max = el.maxLength, n = el.value.length;
+    c.textContent = `${n}/${max}`;
+    c.classList.toggle('near', n >= max * 0.9);
+  };
+  const on = (e) => { if (e.target.matches?.('[data-chars]')) paint(e.target); };
+  document.addEventListener('input', on);
+  document.addEventListener('focusin', on);
 }
 
 export function toast(msg, kind = '') {

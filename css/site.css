@@ -542,3 +542,7 @@ section { position: relative; }
   [data-reveal] { opacity: 1; transform: none; }
   [data-split] .w > span { transform: none; }
 }
+
+/* Contador de caracteres */
+.chars { align-self: flex-end; margin-top: -2px; font: 500 11.5px/1 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; transition: color 200ms; }
+.chars.near { color: var(--danger); font-weight: 700; }

@@ -3,12 +3,14 @@
    Pedidos (novos · em preparo · prontos), observações dos clientes,
    comandas do salão e fechamento da conta com todas as formas de pagamento.
    ========================================================= */
-import { connect, dayKey } from './data.js';
-import { gate } from './auth-ui.js';
-import { STORE, PAYMENTS } from './config.js';
+import { connect, dayKey } from './data.js?v=3';
+import { gate } from './auth-ui.js?v=3';
+import { STORE, PAYMENTS } from './config.js?v=3';
 import {
-  $, $$, esc, money, CATEGORIES, resolveMenu, itemsTotal, lineLabel, timeAgo, hhmm, chime, toast, pixPayload
-} from './util.js';
+  $, $$, esc, money, CATEGORIES, resolveMenu, itemsTotal, lineLabel, timeAgo, hhmm, chime, toast, pixPayload, charCounters
+} from './util.js?v=3';
+
+charCounters();
 
 const root = $('#root');
 const S = {
@@ -251,12 +253,12 @@ function comDetail(c) {
   ${S.draft.length ? `<div class="panel draft">
     <div class="panel__head"><h3>Novo envio</h3><span class="grow"></span><b>${money(draftTotal)}</b></div>
     <div class="rows">${S.draft.map((it, i) => `<div class="row"><span class="q">${it.qty}×</span><span>${esc(it.name)}${lineLabel(it) ? `<small>${esc(lineLabel(it))}</small>` : ''}${it.note ? `<small class="obs">${esc(it.note)}</small>` : ''}</span><span class="p">${money(it.price * it.qty)}</span><button class="mini-x" data-rm="${i}" aria-label="Remover">×</button></div>`).join('')}</div>
-    <label class="field" style="margin-top:10px"><span>Observação geral para a cozinha</span><input id="draftNote" maxlength="200" value="${esc(S.draftNote || '')}"></label>
+    <label class="field" style="margin-top:10px"><span>Observação geral para a cozinha</span><input id="draftNote" maxlength="200" data-chars value="${esc(S.draftNote || '')}"></label>
     <button class="btn btn--blue btn--lg btn--block" style="margin-top:12px" id="sendDraft">Enviar para a cozinha</button>
   </div>` : ''}
   <div class="panel">
     <div class="picker__bar"><h3 style="margin-right:auto">Adicionar itens</h3>
-      <label class="field"><input id="pkQ" type="search" placeholder="Buscar produto" value="${esc(S.pickQ)}" autocomplete="off"></label></div>
+      <label class="field"><input id="pkQ" type="search" maxlength="60" placeholder="Buscar produto" value="${esc(S.pickQ)}" autocomplete="off"></label></div>
     <div class="chips" id="pkCats"><button data-pc="todos" class="${S.pickCat === 'todos' ? 'is-on' : ''}">Todos</button>${CATEGORIES.map((k) => `<button data-pc="${k.id}" class="${S.pickCat === k.id ? 'is-on' : ''}">${esc(k.name)}</button>`).join('')}</div>
     <div class="pick-grid">${prods.map((p) => `<button class="pick ${p.active === false ? 'is-off' : ''}" data-pick="${p.id}"><b>${esc(p.name)}</b><span>${p.sizes?.length > 1 ? 'a partir de ' : ''}${money(p.price)}</span></button>`).join('') || '<p class="muted">Nada encontrado.</p>'}</div>
   </div>`;
@@ -402,9 +404,9 @@ function closeDetail(c) {
     <div class="totals">
       <div><span>Subtotal</span><span>${money(t.sub)}</span></div>
       <div><label class="check"><input type="checkbox" id="svc" ${c.service ? 'checked' : ''} ${isClosed ? 'disabled' : ''}> Taxa de serviço (10%)</label><span>${money(t.service)}</span></div>
-      <div><span>Desconto (R$)</span><input class="inline-input" id="disc" inputmode="decimal" value="${t.discount ? String(t.discount).replace('.', ',') : ''}" placeholder="0,00" ${isClosed ? 'disabled' : ''}></div>
+      <div><span>Desconto (R$)</span><input class="inline-input" id="disc" inputmode="decimal" maxlength="10" value="${t.discount ? String(t.discount).replace('.', ',') : ''}" placeholder="0,00" ${isClosed ? 'disabled' : ''}></div>
       <div class="big"><span>Total</span><span>${money(t.total)}</span></div>
-      <div><span>Dividir por <input class="inline-input" style="width:60px;text-align:center" id="people" inputmode="numeric" value="${people}"> pessoa(s)</span><b>${money(t.total / people)} cada</b></div>
+      <div><span>Dividir por <input class="inline-input" style="width:60px;text-align:center" id="people" inputmode="numeric" maxlength="2" value="${people}"> pessoa(s)</span><b>${money(t.total / people)} cada</b></div>
     </div>
   </div>
   <div class="panel">
@@ -412,8 +414,8 @@ function closeDetail(c) {
     ${isClosed ? '' : `
     <div class="methods" id="methods">${PAYMENTS.map((p) => `<button class="method ${S.payMethod === p.id ? 'is-on' : ''}" data-m="${p.id}">${p.name}</button>`).join('')}</div>
     <div class="pay-line">
-      <label class="field"><span>Valor ${S.payMethod === 'dinheiro' ? 'a pagar' : ''}</span><input id="payAmt" inputmode="decimal" value="${remain ? (people > 1 ? Math.min(remain, Math.ceil((t.total / people) * 100) / 100) : remain).toFixed(2).replace('.', ',') : ''}"></label>
-      ${S.payMethod === 'dinheiro' ? '<label class="field"><span>Recebido em dinheiro</span><input id="payGot" inputmode="decimal" placeholder="Ex.: 100,00"></label>' : ''}
+      <label class="field"><span>Valor ${S.payMethod === 'dinheiro' ? 'a pagar' : ''}</span><input id="payAmt" inputmode="decimal" maxlength="12" value="${remain ? (people > 1 ? Math.min(remain, Math.ceil((t.total / people) * 100) / 100) : remain).toFixed(2).replace('.', ',') : ''}"></label>
+      ${S.payMethod === 'dinheiro' ? '<label class="field"><span>Recebido em dinheiro</span><input id="payGot" inputmode="decimal" maxlength="12" placeholder="Ex.: 100,00"></label>' : ''}
       <button class="btn btn--lg" id="addPay">Registrar</button>
     </div>
     <p id="trocoTxt" class="muted" style="margin-top:6px"></p>
