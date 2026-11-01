@@ -8,13 +8,13 @@
   <meta name="theme-color" content="#f6f1e8">
   <meta property="og:title" content="Delicatessen São José · Mais do que uma padaria!">
   <meta property="og:description" content="Cardápio digital, delivery e encomendas em Carpina – PE.">
-  <meta property="og:image" content="assets/img/produtos/fatia-de-bolo-red-velvet.webp">
+  <meta property="og:image" content="assets/img/hero/tapioca-delicia.webp">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/hero/tapioca-delicia.webp" fetchpriority="high">
   <link rel="stylesheet" href="css/site.css">
-  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
 </head>
 <body>
   <a class="skip" href="#cardapio">Pular para o cardápio</a>
@@ -61,11 +61,22 @@
           <span>· <span data-count="2119">2.119</span> avaliações no Google</span>
         </a>
       </div>
-      <div class="hero__stage" aria-hidden="true">
-        <canvas id="cake3d"></canvas>
-        <img class="hero__fallback" src="assets/img/produtos/fatia-de-bolo-red-velvet.webp" alt="">
-        <span class="hero__badge hero__badge--a">Feito hoje</span>
-        <span class="hero__badge hero__badge--b">6h às 22h</span>
+      <div class="hero__stage" id="heroStage">
+        <figure class="dish" id="dish">
+          <div class="dish__frame">
+            <img src="assets/img/hero/tapioca-delicia.webp" width="600" height="900" alt="Tapioca Delícia São José servida no prato, na mesa da loja" fetchpriority="high" decoding="async">
+          </div>
+          <figcaption>
+            <button class="dish__tag" type="button" data-pid="tapioca-delicia-sao-jose">
+              <span>Prato da casa</span>
+              <b>Tapioca Delícia São José</b>
+              <em>R$ 16,99 <i aria-hidden="true">+</i></em>
+            </button>
+          </figcaption>
+        </figure>
+        <div class="dish__side" aria-hidden="true"><img src="assets/img/hero/red-velvet.webp" width="520" height="520" alt="" decoding="async"></div>
+        <span class="hero__badge hero__badge--a" aria-hidden="true">Feito hoje</span>
+        <span class="hero__badge hero__badge--b" aria-hidden="true">6h às 22h</span>
       </div>
       <a class="hero__scroll" href="#dia" aria-label="Rolar"><span></span></a>
     </section>

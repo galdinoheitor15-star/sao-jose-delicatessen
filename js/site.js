@@ -141,13 +141,38 @@ if (finePointer && !reduceMotion()) {
   });
 }
 
-/* ---------- Bolo 3D do topo ---------- */
+/* ---------- Prato real do topo: inclinação 3D no mouse e paralaxe na rolagem ---------- */
 {
-  const stage = $('.hero__stage');
-  const gl = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } })();
-  if (gl && params.get('3d') !== '0') {
-    const start = () => import('./hero3d.js').then((m) => m.mountCake($('#cake3d'), stage)).catch((e) => console.warn('3D indisponível', e));
-    'requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 900 }) : setTimeout(start, 200);
+  const dish = $('#dish'), side = $('.dish__side'), hero = $('.hero');
+  $('.dish__tag').addEventListener('click', (e) => openProduct(e.currentTarget.dataset.pid, $('.dish__frame img')));
+  if (!reduceMotion()) {
+    if (finePointer) {
+      let raf = 0;
+      hero.addEventListener('pointermove', (e) => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+          dish.style.setProperty('--ry', `${x * 14}deg`);
+          dish.style.setProperty('--rx', `${-y * 10}deg`);
+          side.style.setProperty('--px', `${-x * 28}px`);
+          side.style.setProperty('--py', `${-y * 22}px`);
+        });
+      });
+      hero.addEventListener('pointerleave', () => {
+        ['--rx', '--ry'].forEach((p) => dish.style.setProperty(p, '0deg'));
+        ['--px', '--py'].forEach((p) => side.style.setProperty(p, '0px'));
+      });
+    }
+    let ticking = false;
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const k = Math.min(1, scrollY / (hero.offsetHeight || 1));
+        if (k < 1) dish.style.setProperty('--py', `${k * 60}px`);
+        ticking = false;
+      });
+    }, { passive: true });
   }
 }
 
