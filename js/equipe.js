@@ -97,9 +97,9 @@ function shell() {
         <a class="brand" href="../" title="Ver o site"><b>São José</b><small>Delicatessen</small></a>
         <nav class="bar__tabs" id="tabs">
           <button class="bar__tab" data-v="pedidos">Pedidos<b id="cPed"></b></button>
-          <button class="bar__tab" data-v="obs">Observações<b id="cObs"></b></button>
+          <button class="bar__tab" data-v="obs"><span class="lg">Observações</span><span class="sm">Obs.</span><b id="cObs"></b></button>
           <button class="bar__tab" data-v="comandas">Comandas<b id="cCom"></b></button>
-          <button class="bar__tab" data-v="fechamento">Fechamento</button>
+          <button class="bar__tab" data-v="fechamento"><span class="lg">Fechamento</span><span class="sm">Caixa</span></button>
         </nav>
         <div class="bar__right">
           ${S.be.mode === 'local' ? '<span class="mode-chip" title="Dados salvos só neste navegador">Demonstração</span>' : ''}

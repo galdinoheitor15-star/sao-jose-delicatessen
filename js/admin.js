@@ -82,7 +82,7 @@ function renderProducts(view) {
       <label class="field"><input id="fQ" type="search" placeholder="Buscar produto" value="${esc(S.q)}" autocomplete="off"></label>
       <label class="field" style="flex:0 0 220px"><select id="fCat"><option value="">Todas as categorias</option>${CATEGORIES.map((c) => `<option value="${c.id}" ${S.cat === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
     </div>
-    <table class="table">
+    <div class="table-wrap"><table class="table">
       <thead><tr><th></th><th>Produto</th><th>Preço (R$)</th><th class="hide-sm">Disponível</th><th class="hide-sm">Destaque</th><th></th></tr></thead>
       <tbody>${list.map((p) => `<tr data-id="${p.id}">
         <td>${p.img ? `<img src="${p.img.startsWith('data:') || p.img.startsWith('http') ? p.img : '../' + p.img}" alt="" loading="lazy">` : `<span class="mono">${esc(p.name[0])}</span>`}</td>
@@ -92,7 +92,7 @@ function renderProducts(view) {
         <td class="hide-sm"><label class="switch"><input type="checkbox" data-feat ${p.featured ? 'checked' : ''} aria-label="Destaque"><span></span></label></td>
         <td style="white-space:nowrap"><button class="btn btn--line btn--sm" data-edit>Editar</button> <button class="btn btn--ghost btn--sm" data-del>Excluir</button></td>
       </tr>`).join('')}</tbody>
-    </table>
+    </table></div>
     ${list.length ? '' : '<p class="empty-state">Nenhum produto encontrado.</p>'}
     <p style="margin-top:20px"><button class="btn btn--ghost btn--sm" id="resetMenu">Restaurar o cardápio original</button></p>`;
 }
