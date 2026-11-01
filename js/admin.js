@@ -154,6 +154,7 @@ function openEditor(p) {
   $('#edMulti').value = String(p?.multi || 0);
   $('#edActive').checked = p ? p.active !== false : true;
   $('#edFeat').checked = !!p?.featured;
+  $('#edDel').hidden = !p;
   paintImg();
   ed.showModal();
 }
@@ -162,6 +163,10 @@ function paintImg() {
   $('#edImgPrev').innerHTML = src ? `<img src="${src}" alt="">` : '<span class="mono">Sem foto</span>';
   $('#edImgRm').hidden = !S.img;
 }
+$('#edDel').addEventListener('click', async () => {
+  const p = S.editing; if (!p || !confirm(`Excluir "${p.name}" do cardápio?`)) return;
+  try { await persist(p, true); ed.close(); toast('Produto excluído'); } catch { toast('Não foi possível excluir.', 'err'); }
+});
 $('#edAddSize').addEventListener('click', () => $('#edSizes').insertAdjacentHTML('beforeend', sizeRow()));
 $('#edSizes').addEventListener('click', (e) => { if (e.target.closest('[data-rmsize]')) e.target.closest('div').remove(); });
 $('#edImgRm').addEventListener('click', () => { S.img = ''; paintImg(); });

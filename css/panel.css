@@ -269,15 +269,22 @@ p { margin: 0; }
   .table-wrap { overflow: visible; }
   .table thead { display: none; }
   .table, .table tbody { display: block; }
-  .table tr { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 10px 12px; align-items: center; padding: 12px; border-bottom: 1px solid var(--line); }
+  .table tr { display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; gap: 8px 12px; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .table td b { font-size: 14.5px; line-height: 1.25; }
+  .table .price-in { width: 92px; min-height: 40px; }
   .table tr:last-child { border-bottom: 0; }
   .table td { padding: 0; border: 0; }
-  .table td:nth-child(4), .table td:nth-child(5) { grid-row: 2; grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+  .table td:nth-child(4), .table td:nth-child(5) { grid-row: 2; grid-column: 1 / 3; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
   .table td:nth-child(4) { justify-self: start; }
   .table td:nth-child(5) { justify-self: end; }
   .table td:nth-child(4)::before { content: 'Disponível'; }
   .table td:nth-child(5)::before { content: 'Destaque'; }
-  .table td:last-child { grid-row: 3; grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .table td:last-child { grid-row: 2; grid-column: 3; justify-self: end; }
+  .table td:last-child [data-del] { display: none; }
+  .view-head { gap: 6px 12px; }
+  .view-head h2 { font-size: 24px; }
+  .view-head .btn { width: 100%; }
+  .picker__bar .field, .picker__bar .field[style] { flex: 1 1 100% !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
