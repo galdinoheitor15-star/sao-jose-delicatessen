@@ -1,0 +1,49 @@
+rules_version = '2';
+
+// Regras de segurança — Delicatessen São José.
+// Troque os e-mails abaixo pelos da equipe e do(s) gerente(s).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isManager() {
+      return request.auth != null
+        && request.auth.token.email in ['EMAIL_DO_GERENTE@gmail.com'];
+    }
+    function isStaff() {
+      return isManager() || (request.auth != null
+        && request.auth.token.email in ['EMAIL_DA_EQUIPE@gmail.com']);
+    }
+
+    // Cardápio e configurações: todo mundo lê, só o gerente altera
+    match /products/{id} { allow read: if true; allow write: if isManager(); }
+    match /config/settings { allow read: if true; allow write: if isManager(); }
+
+    // Numeração diária: qualquer um soma 1 (pedido do site); a equipe pode tudo
+    match /config/{counter} {
+      allow read: if counter in ['counter', 'comcounter'];
+      allow write: if (counter in ['counter', 'comcounter'])
+        && (isStaff() || request.resource.data.n == 1 || request.resource.data.n == resource.data.n + 1);
+    }
+
+    // Pedidos: cliente cria (site/QR da mesa) e acompanha o próprio pelo código;
+    // só a equipe lista, altera ou apaga.
+    match /orders/{id} {
+      allow get: if true;
+      allow list, update, delete: if isStaff();
+      allow create: if isStaff() || (
+        request.resource.data.status == 'novo'
+        && request.resource.data.source in ['delivery', 'retirada', 'mesa']
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0
+        && request.resource.data.items.size() <= 60
+        && request.resource.data.customer.nome is string
+        && request.resource.data.customer.nome.size() <= 80
+        && request.resource.data.total is number
+        && !('comandaId' in request.resource.data)
+      );
+    }
+
+    // Comandas e fechamento: só a equipe
+    match /comandas/{id} { allow read, write: if isStaff(); }
+  }
+}

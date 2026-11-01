@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Delicatessen São José · Carpina – PE</title>
+  <meta name="description" content="Mais do que uma padaria! Café da manhã, almoço e jantar em Carpina – PE. Bolos, tortas, doces, salgados, pizzas, cestas especiais e delivery. Todos os dias, das 6h às 22h.">
+  <meta name="theme-color" content="#f6f1e8">
+  <meta property="og:title" content="Delicatessen São José · Mais do que uma padaria!">
+  <meta property="og:description" content="Cardápio digital, delivery e encomendas em Carpina – PE.">
+  <meta property="og:image" content="assets/img/produtos/fatia-de-bolo-red-velvet.webp">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
+</head>
+<body>
+  <a class="skip" href="#cardapio">Pular para o cardápio</a>
+
+  <!-- Topo -->
+  <header class="top" id="top">
+    <div class="top__in">
+      <a class="brand" href="#inicio" aria-label="Delicatessen São José, início">
+        <span class="brand__word">São José</span>
+        <span class="brand__sub">Delicatessen</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#cardapio">Cardápio</a>
+        <a href="#cestas">Cestas</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#avaliacoes">Avaliações</a>
+        <a href="#visite">Visite</a>
+      </nav>
+      <span class="open-pill" id="openPill"><i></i><span>Aberto agora</span></span>
+      <button class="bag-btn" id="bagBtn" aria-label="Abrir sacola">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <b class="bag-btn__count" id="bagCount" hidden>0</b>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+      <div class="hero__copy">
+        <p class="eyebrow" data-reveal>Carpina · Pernambuco · desde cedo até tarde</p>
+        <h1 class="hero__title" data-split>Mais do que uma <em>padaria.</em></h1>
+        <p class="hero__lead" data-reveal>Café da manhã, almoço e jantar. Bolos, tortas, doces, salgados e pizzas feitos todos os dias, das 6h às 22h.</p>
+        <div class="hero__ctas" data-reveal>
+          <a class="btn btn--ink" href="#cardapio">Ver cardápio</a>
+          <a class="btn btn--line" id="heroWa" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/></svg>
+            Pedir pelo WhatsApp
+          </a>
+        </div>
+        <a class="rating-chip" href="#avaliacoes" data-reveal>
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <b><span data-count="4.4" data-decimals="1">4,4</span></b>
+          <span>· <span data-count="2119">2.119</span> avaliações no Google</span>
+        </a>
+      </div>
+      <div class="hero__stage" aria-hidden="true">
+        <canvas id="cake3d"></canvas>
+        <img class="hero__fallback" src="assets/img/produtos/fatia-de-bolo-red-velvet.webp" alt="">
+        <span class="hero__badge hero__badge--a">Feito hoje</span>
+        <span class="hero__badge hero__badge--b">6h às 22h</span>
+      </div>
+      <a class="hero__scroll" href="#dia" aria-label="Rolar"><span></span></a>
+    </section>
+
+    <!-- Faixa -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Bolos e tortas</span><span>Salgados</span><span>Doces</span><span>Sanduíches</span><span>Frios e queijos</span><span>Cestas especiais</span><span>Bebidas</span><span>Café da manhã</span><span>Almoço</span><span>Jantar</span>
+        <span>Bolos e tortas</span><span>Salgados</span><span>Doces</span><span>Sanduíches</span><span>Frios e queijos</span><span>Cestas especiais</span><span>Bebidas</span><span>Café da manhã</span><span>Almoço</span><span>Jantar</span>
+      </div>
+    </div>
+
+    <!-- Um dia na São José -->
+    <section class="day" id="dia">
+      <header class="sec-head">
+        <p class="eyebrow" data-reveal>Um dia na São José</p>
+        <h2 data-split>Do primeiro pão às <em>22h</em>.</h2>
+      </header>
+      <div class="day__grid">
+        <a class="moment tilt" href="#cat-cafe-da-manha" data-reveal>
+          <img src="assets/img/produtos/tapioca-delicia-sao-jose.webp" alt="Tapioca Delícia São José" loading="lazy">
+          <div class="moment__txt"><span>06h</span><h3>Café da manhã</h3><p>Tapiocas, omeletes, cappuccino e pão saindo do forno.</p></div>
+        </a>
+        <a class="moment tilt" href="#cat-almoco" data-reveal>
+          <img src="assets/img/produtos/almoco-executivo.webp" alt="Almoço executivo" loading="lazy">
+          <div class="moment__txt"><span>11h</span><h3>Almoço</h3><p>Self-service variado no salão e almoço executivo.</p></div>
+        </a>
+        <a class="moment tilt" href="#cat-jantar" data-reveal>
+          <img src="assets/img/produtos/pizza-mega-sao-jose.webp" alt="Pizza Mega São José" loading="lazy">
+          <div class="moment__txt"><span>18h</span><h3>Jantar</h3><p>Pizzas, hambúrgueres artesanais e a vitrine de doces.</p></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Destaques em carrossel 3D -->
+    <section class="ring-sec" id="destaques">
+      <header class="sec-head sec-head--light">
+        <p class="eyebrow" data-reveal>Os queridinhos da casa</p>
+        <h2 data-split>Escolhidos a dedo, <em>todo dia.</em></h2>
+      </header>
+      <div class="ring" id="ring" aria-label="Produtos em destaque">
+        <div class="ring__spin" id="ringSpin"></div>
+      </div>
+      <p class="ring__hint" data-reveal>Arraste para girar · toque para pedir</p>
+    </section>
+
+    <!-- Cardápio -->
+    <section class="menu" id="cardapio">
+      <header class="sec-head">
+        <p class="eyebrow" data-reveal>Cardápio digital</p>
+        <h2 data-split>Tudo o que sai da <em>nossa cozinha.</em></h2>
+      </header>
+      <div class="menu__bar" id="menuBar">
+        <div class="tabs" id="tabs" role="tablist" aria-label="Categorias"></div>
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Buscar no cardápio" autocomplete="off">
+        </label>
+      </div>
+      <div class="menu__list" id="menuList"></div>
+    </section>
+
+    <!-- Cestas -->
+    <section class="cestas" id="cestas">
+      <div class="cestas__card" data-reveal>
+        <div class="cestas__txt">
+          <p class="eyebrow">Cestas especiais</p>
+          <h2>Presente bom é presente <em>que se come.</em></h2>
+          <p>Café da manhã surpresa, Páscoa, Natal, Dia das Mães ou coffee break da empresa: montamos a cesta do seu jeito, sob encomenda.</p>
+          <a class="btn btn--light" id="cestaWa" href="#" target="_blank" rel="noopener">Encomendar uma cesta</a>
+        </div>
+        <div class="cestas__art" aria-hidden="true">
+          <img src="assets/img/produtos/torta-gelada-de-morango.webp" alt="" loading="lazy">
+          <img src="assets/img/produtos/croissant.webp" alt="" loading="lazy">
+          <img src="assets/img/produtos/copo-da-felicidade.webp" alt="" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Delivery -->
+    <section class="delivery" id="delivery">
+      <header class="sec-head">
+        <p class="eyebrow" data-reveal>Delivery</p>
+        <h2 data-split>A gente leva até <em>você.</em></h2>
+      </header>
+      <div class="delivery__grid">
+        <div class="delivery__check" data-reveal>
+          <h3>Entregamos no seu endereço?</h3>
+          <p class="muted">Escolha o seu bairro ou use a localização do celular.</p>
+          <label class="field">
+            <span>Bairro</span>
+            <select id="zoneSelect"><option value="">Selecione o bairro</option></select>
+          </label>
+          <button class="btn btn--line btn--sm" id="geoBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            Usar minha localização
+          </button>
+          <div class="zone-result" id="zoneResult" aria-live="polite"></div>
+          <ul class="delivery__facts">
+            <li><b id="etaTxt">35–55 min</b><span>tempo médio</span></li>
+            <li><b id="minTxt">R$ 20</b><span>pedido mínimo</span></li>
+            <li><b>Pix · cartão · dinheiro</b><span>na entrega</span></li>
+          </ul>
+        </div>
+        <div class="delivery__map" data-reveal>
+          <div id="map" role="img" aria-label="Mapa da área de entrega"></div>
+          <ul class="zones" id="zonesList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section class="reviews" id="avaliacoes">
+      <header class="sec-head sec-head--light">
+        <p class="eyebrow" data-reveal>Quem prova, conta</p>
+        <h2 data-split>Avaliações <em>reais</em> de clientes.</h2>
+      </header>
+      <div class="reviews__score" data-reveal>
+        <b><span data-count="4.4" data-decimals="1">4,4</span></b>
+        <div><span class="stars stars--lg" aria-label="4,4 de 5 estrelas">★★★★★</span><p><span data-count="2119">2.119</span> avaliações no Google</p></div>
+      </div>
+      <div class="reviews__grid" id="reviews"></div>
+      <a class="btn btn--light" id="reviewsLink" href="#" target="_blank" rel="noopener">Ver todas no Google</a>
+    </section>
+
+    <!-- Visite -->
+    <section class="visit" id="visite">
+      <div class="visit__grid">
+        <div data-reveal>
+          <p class="eyebrow">Visite a gente</p>
+          <h2>Av. Agamenon Magalhães, <em>285</em>.</h2>
+          <p class="visit__addr" id="addr"></p>
+          <dl class="visit__hours">
+            <div><dt>Todos os dias</dt><dd>06h às 22h</dd></div>
+            <div><dt>Café da manhã</dt><dd>a partir das 06h</dd></div>
+            <div><dt>Almoço e jantar</dt><dd>self-service e à la carte</dd></div>
+          </dl>
+          <div class="visit__ctas">
+            <a class="btn btn--ink" id="mapsLink" href="#" target="_blank" rel="noopener">Como chegar</a>
+            <a class="btn btn--line" id="igLink" href="#" target="_blank" rel="noopener">@delicatessensaojose</a>
+          </div>
+        </div>
+        <div class="insta" data-reveal>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/torta-gelada-sonho-de-valsa.webp" alt="" loading="lazy"></a>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/coxinha-de-charque-280g.webp" alt="" loading="lazy"></a>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/cappuccino-grande.webp" alt="" loading="lazy"></a>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/carne-essiccata.webp" alt="" loading="lazy"></a>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/fatia-de-bolo-de-oreo.webp" alt="" loading="lazy"></a>
+          <a class="insta__tile" href="#" data-ig><img src="assets/img/produtos/suco-sao-jose.webp" alt="" loading="lazy"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__in">
+      <div class="brand brand--foot"><span class="brand__word">São José</span><span class="brand__sub">Delicatessen</span></div>
+      <p>Mais do que uma padaria! · Carpina – PE</p>
+      <nav aria-label="Acesso da equipe"><a href="equipe/">Equipe</a><a href="admin/">Gerência</a></nav>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3Zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 2.1.9 3 1 4 .8.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>
+  </a>
+
+  <!-- Produto (opções) -->
+  <dialog class="sheet" id="productSheet" aria-labelledby="psName">
+    <form method="dialog" class="sheet__in" id="productForm">
+      <button class="sheet__x" value="cancel" aria-label="Fechar">×</button>
+      <div class="ps__media" id="psMedia"></div>
+      <div class="ps__body">
+        <p class="eyebrow" id="psCat"></p>
+        <h3 id="psName"></h3>
+        <p class="muted" id="psDesc"></p>
+        <div id="psSizes"></div>
+        <div id="psOpts"></div>
+        <label class="field"><span>Observação para a cozinha</span>
+          <textarea id="psNote" rows="2" maxlength="140" placeholder="Ex.: sem cebola, bem passado, cortar ao meio"></textarea>
+        </label>
+        <div class="ps__foot">
+          <div class="qty"><button type="button" data-q="-1" aria-label="Menos">−</button><output id="psQty">1</output><button type="button" data-q="1" aria-label="Mais">+</button></div>
+          <button class="btn btn--ink btn--grow" id="psAdd" value="add">Adicionar · <span id="psTotal"></span></button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Sacola -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__scrim" data-close></div>
+    <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="bagTitle">
+      <header class="drawer__head">
+        <h3 id="bagTitle">Sua sacola</h3>
+        <button class="sheet__x" data-close aria-label="Fechar">×</button>
+      </header>
+      <div class="drawer__body" id="bagBody"></div>
+      <footer class="drawer__foot" id="bagFoot"></footer>
+    </aside>
+  </div>
+
+  <script type="module" src="js/site.js"></script>
+</body>
+</html>

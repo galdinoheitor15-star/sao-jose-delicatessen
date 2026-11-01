@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Painel da equipe · São José</title>
+  <meta name="theme-color" content="#fffdf9">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/panel.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <dialog class="modal" id="pickModal">
+    <form method="dialog" class="modal__in" id="pickForm">
+      <h3 id="pmName"></h3>
+      <div id="pmSizes"></div>
+      <div id="pmOpts"></div>
+      <label class="field"><span>Observação do cliente</span><input id="pmNote" maxlength="140" placeholder="Ex.: sem cebola, pouco gelo"></label>
+      <div class="modal__foot" style="justify-content:space-between">
+        <div class="qty"><button type="button" data-q="-1" aria-label="Menos">−</button><output id="pmQty">1</output><button type="button" data-q="1" aria-label="Mais">+</button></div>
+        <div style="display:flex;gap:8px"><button class="btn btn--line" value="cancel">Cancelar</button><button class="btn" value="ok" id="pmOk">Adicionar</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="newComModal">
+    <form method="dialog" class="modal__in" id="newComForm">
+      <h3>Nova comanda</h3>
+      <div class="opts" id="ncKind">
+        <label class="opt"><input type="radio" name="nck" value="mesa" checked><span>Mesa</span></label>
+        <label class="opt"><input type="radio" name="nck" value="balcao"><span>Balcão / cliente</span></label>
+      </div>
+      <label class="field" id="ncMesaF"><span>Número da mesa</span><input id="ncMesa" inputmode="numeric" maxlength="3"></label>
+      <label class="field" id="ncNomeF" hidden><span>Nome do cliente</span><input id="ncNome" maxlength="40"></label>
+      <div class="modal__foot"><button class="btn btn--line" value="cancel">Cancelar</button><button class="btn" value="ok">Abrir comanda</button></div>
+    </form>
+  </dialog>
+
+  <div id="receipt" hidden></div>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
+  <script type="module" src="../js/equipe.js"></script>
+</body>
+</html>
